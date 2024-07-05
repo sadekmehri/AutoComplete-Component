@@ -1,0 +1,51 @@
+.suggestions {
+  position: relative;
+  width: 100%;
+}
+
+.suggestions-list {
+  position: absolute;
+  width: 100%;
+  border-radius: 0 0 4px 4px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  background: #fff;
+  z-index: 10;
+  max-height: 150px;
+  overflow-y: auto;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  box-sizing: border-box;
+}
+
+.suggestions-list::-webkit-scrollbar {
+  width: 0.5rem;
+}
+
+.suggestions-list::-webkit-scrollbar-thumb {
+  background-color: #ccc;
+  border-radius: 0.5rem;
+}
+
+.suggestions-list::-webkit-scrollbar-track {
+  background-color: #f0f0f0;
+}
+
+.suggestion-item {
+  padding: 10px;
+  border-top: 1px solid #f0f0f0;
+  cursor: pointer;
+}
+
+.suggestion-item:first-child {
+  border-top: none;
+}
+
+.suggestion-item.selected {
+  background-color: lightgray;
+}
+
+.suggestion-item:hover,
+.suggestion-item[aria-selected='true'] {
+  background-color: #f0f0f0;
+}

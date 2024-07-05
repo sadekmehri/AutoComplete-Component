@@ -1,0 +1,29 @@
+.clearable-input {
+  position: relative;
+  display: flex;
+  gap: 0.25rem;
+  flex-direction: column;
+  width: 100%;
+}
+
+.clearable-input > input {
+  width: 100%;
+  padding: 10px;
+  padding-right: 2.5em;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+.clearable-input > .data-clear-input {
+  position: absolute;
+  right: 10px;
+  background: none;
+  color: inherit;
+  border: none;
+  cursor: pointer;
+  font: bold 18px sans-serif;
+}
+
+.clearable-input > .data-clear-input::-ms-clear {
+  display: none;
+}
