@@ -8,6 +8,7 @@ export const App: FC = () => {
       dataSource={employees}
       displayExpr='fullName'
       placeholder='Search employees by name...'
+      onSelect={(employee) => console.log(employee)}
       label='Employee Name'
       keyExpr='id'
       clearButton

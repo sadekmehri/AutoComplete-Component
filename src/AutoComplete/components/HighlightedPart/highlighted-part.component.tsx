@@ -24,5 +24,3 @@ export const HighlightedText: FC<HighlightedTextProps> = (props) => {
     </span>
   )
 }
-
-export default HighlightedText

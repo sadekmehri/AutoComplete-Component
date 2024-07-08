@@ -1,4 +1,4 @@
-import { ChangeEvent, useEffect, useState } from 'react'
+import { ChangeEvent, useCallback, useEffect, useState } from 'react'
 import type { AnyObject, OptionList } from './types'
 import { useDebounce } from './hooks'
 import { BoyerMooreUtil } from './utils'
@@ -22,6 +22,7 @@ export function AutoComplete<T extends AnyObject>(params: AutoCompleteProps<T>) 
     label,
     clearButton = false,
     id = 'auto-complete-container',
+    onSelect,
   } = params
 
   const [searchText, setSearchText] = useState<string>('')
@@ -31,9 +32,8 @@ export function AutoComplete<T extends AnyObject>(params: AutoCompleteProps<T>) 
   useEffect(() => {
     if (!dataSource) return
     if (dataSource.length === 0) return
-
     if (searchText.length === 0) {
-      return setSuggestions([])
+      return clearSuggestions()
     }
 
     const filteredOptions = filterOptions(dataSource, debouncedSearchText)
@@ -44,17 +44,27 @@ export function AutoComplete<T extends AnyObject>(params: AutoCompleteProps<T>) 
     setSearchText(event.target.value)
   }
 
-  function onClearInput() {
+  const onClearInput = useCallback(() => {
     setSearchText('')
-  }
+  }, [])
 
   function filterOptions(dataSource: Array<T>, textValue: string) {
-    return dataSource.filter((option) => {
+    return dataSource?.filter((option) => {
       const haystack = `${option[displayExpr]}`.toLocaleLowerCase()
       const needle = textValue.toLocaleLowerCase()
       return BoyerMooreUtil.searchPattern(haystack, needle)
     })
   }
+
+  const clearSuggestions = useCallback(() => {
+    setSuggestions([])
+  }, [])
+
+  const handleSelect = useCallback((item: T) => {
+    onSelect?.(item)
+    onClearInput()
+    clearSuggestions()
+  }, [])
 
   return (
     <div className='auto-complete-container' id={id}>
@@ -88,6 +98,7 @@ export function AutoComplete<T extends AnyObject>(params: AutoCompleteProps<T>) 
         inputValue={searchText}
         keyExpr={keyExpr}
         displayExpr={displayExpr}
+        onSelect={handleSelect}
       />
     </div>
   )

@@ -34,6 +34,7 @@
 .suggestion-item {
   padding: 10px;
   border-top: 1px solid #f0f0f0;
+  list-style-type: none;
   cursor: pointer;
 }
 
@@ -42,7 +43,7 @@
 }
 
 .suggestion-item.selected {
-  background-color: lightgray;
+  background-color: #f0f0f0;
 }
 
 .suggestion-item:hover,
